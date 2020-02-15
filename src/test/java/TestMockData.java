@@ -1,9 +1,14 @@
+import com.alibaba.fastjson.JSONObject;
 import mockData.MockData;
 import org.apache.spark.SparkConf;
+import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SQLContext;
+import spark.session.UserVisitSessionAnalyzeSpark;
+
+import java.util.List;
 
 public class TestMockData {
 
@@ -21,5 +26,12 @@ public class TestMockData {
         ds2.show();
         Dataset<Row> ds3 = sqlContext.sql("select * from product_info");
         ds3.show();
+
+        JavaRDD<Row> acitionRDDByDateRange = UserVisitSessionAnalyzeSpark.getAcitionRDDByDateRange(sqlContext, new JSONObject());
+
+        List<Row> collect = acitionRDDByDateRange.collect();
+        collect.forEach(System.out::println);
+
+
     }
 }
