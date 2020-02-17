@@ -15,9 +15,18 @@ public interface Constants {
     String METADATA_BROKER_LIST = "metadata.broker.list";
     String SERIALIZER_CLASS = "serializer.class";
 
-    //Task任务相关参数
+    //Task任务相关参数:确定查询范围
+    //时间，年龄，职业，城市，性别，搜索关键词，品类id，目标页面
     String PARAM_START_DATE = "startDate";
     String PARAM_END_DATE = "endDate";
+    String PARAM_START_AGE = "startAge";
+    String PARAM_END_AGE = "endAge";
+    String PARAM_PROFESSIONALS = "professionals";
+    String PARAM_CITIES = "cities";
+    String PARAM_SEX = "sex";
+    String PARAM_KEYWORDS = "keywords";
+    String PARAM_CATEGORY_IDS = "categoryIds";
+    String PARAM_TARGET_PAGE_FLOW = "targetPageFlow";
 
     //spark计算任务相关常量
     String SPARK_APP_NAME_SESSION = "UserVisitSessionAnalyzeSpark";
@@ -55,4 +64,5 @@ public interface Constants {
     String STEP_PERIOD_10_30 = "10_30";
     String STEP_PERIOD_30_60 = "30_60";
     String STEP_PERIOD_60 = "60";
+
 }

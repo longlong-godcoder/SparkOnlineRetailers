@@ -6,7 +6,7 @@ import jdbc.JDBCHelper;
 
 import java.sql.ResultSet;
 
-public class ITaskDAOImpl implements ITaskDAO {
+public class TaskDAOImpl implements ITaskDAO {
     @Override
     public Task findById(Long taskid) {
         String sql = "select * from task where task_id=?";

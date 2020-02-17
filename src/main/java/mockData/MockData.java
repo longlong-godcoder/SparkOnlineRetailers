@@ -35,7 +35,7 @@ public class MockData {
             for (int j = 0; j < 10; j++) {
                 //一个session对应一个小时
                 String sessionid = UUID.randomUUID().toString().replace("-", "");
-                String hourTime = date + " " + random.nextInt(24);
+                String hourTime = date + " " + StringUtils.fullfill(String.valueOf(random.nextInt(23)));
                 //一个session对应一个品类
                 Long clickCategoryId = null;
                 //一个session有不确定不到100的行为
@@ -44,8 +44,8 @@ public class MockData {
                     long pageid = random.nextInt(10);
                     //访问时间 精确到 秒
                     String actionTime = hourTime + ":"
-                            + StringUtils.fullfill(String.valueOf(random.nextInt(60)))
-                            + ":" + StringUtils.fullfill(String.valueOf(random.nextInt(60)));
+                            + StringUtils.fullfill(String.valueOf(random.nextInt(59)))
+                            + ":" + StringUtils.fullfill(String.valueOf(random.nextInt(59)));
                     String searchKeyword = null;
                     Long clickProductId = null;
                     String orderCategoryIds = null;

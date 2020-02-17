@@ -2,6 +2,9 @@ package domain;
 
 import java.io.Serializable;
 
+/**
+ * spark任务model类
+ */
 public class Task implements Serializable {
 
 

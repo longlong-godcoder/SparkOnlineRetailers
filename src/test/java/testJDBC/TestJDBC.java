@@ -1,3 +1,5 @@
+package testJDBC;
+
 import jdbc.JDBCHelper;
 
 import java.sql.ResultSet;

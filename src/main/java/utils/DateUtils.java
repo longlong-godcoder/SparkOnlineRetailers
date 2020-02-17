@@ -6,20 +6,23 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class DateUtils {
+    //保证线程安全
+    private static final ThreadLocal<SimpleDateFormat> localDateFormat = new ThreadLocal<>();
     //时间格式
-    private static final SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private static final String TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
     //日期格式
-    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
+    private static final String DATE_FORMAT = "yyyy-MM-dd";
     //日期key格式
-    private static final SimpleDateFormat DATE_KEY_FORMAT = new SimpleDateFormat("yyyyMMdd");
+    private static final String DATE_KEY_FORMAT = "yyyyMMdd";
 
     /**
      *  判断time1在time2之前
      */
     public static boolean before(String time1, String time2){
+        SimpleDateFormat sdf = getTimeFormat();
         try {
-            Date dateTime1 = TIME_FORMAT.parse(time1);
-            Date dateTime2 = TIME_FORMAT.parse(time2);
+            Date dateTime1 = sdf.parse(time1);
+            Date dateTime2 = sdf.parse(time2);
             if (dateTime1.before(dateTime2)) return true;
         } catch (ParseException e) {
             e.printStackTrace();
@@ -31,9 +34,10 @@ public class DateUtils {
      *  判断time1在time2之后
      */
     public static boolean after(String time1, String time2) {
+        SimpleDateFormat sdf = getTimeFormat();
         try {
-            Date dateTime1 = TIME_FORMAT.parse(time1);
-            Date dateTime2 = TIME_FORMAT.parse(time2);
+            Date dateTime1 = sdf.parse(time1);
+            Date dateTime2 = sdf.parse(time2);
 
             if(dateTime1.after(dateTime2)) return true;
         } catch (Exception e) {
@@ -47,9 +51,10 @@ public class DateUtils {
      * 计算时间差
      */
     public static int minus(String time1, String time2) {
+        SimpleDateFormat sdf = getTimeFormat();
         try {
-            Date datetime1 = TIME_FORMAT.parse(time1);
-            Date datetime2 = TIME_FORMAT.parse(time2);
+            Date datetime1 = sdf.parse(time1);
+            Date datetime2 = sdf.parse(time2);
 
             long millisecond = datetime1.getTime() - datetime2.getTime();
 
@@ -65,7 +70,8 @@ public class DateUtils {
      * 获取今天的日期
      */
     public static String getTodayDate() {
-        return DATE_FORMAT.format(new Date());
+        SimpleDateFormat sdf = getDateFormat();
+        return sdf.format(new Date());
     }
 
     /**
@@ -78,7 +84,8 @@ public class DateUtils {
 
         Date date = cal.getTime();
 
-        return DATE_FORMAT.format(date);
+        SimpleDateFormat sdf = getDateFormat();
+        return sdf.format(date);
     }
 
     /**
@@ -95,29 +102,33 @@ public class DateUtils {
      * 将时间转为日期String
      */
     public static String formatDate(Date date) {
-        return DATE_FORMAT.format(date);
+        SimpleDateFormat sdf = getDateFormat();
+        return sdf.format(date);
     }
 
     /**
      * 将时间转为时间String
      */
     public static String formatTime(Date date) {
-        return TIME_FORMAT.format(date);
+        SimpleDateFormat sdf = getTimeFormat();
+        return sdf.format(date);
     }
 
     /**
      * 将日期转为日期key String
      */
     public static String formatDateKey(Date date) {
-        return DATE_KEY_FORMAT.format(date);
+        SimpleDateFormat sdf = getDateKeyFormat();
+        return sdf.format(date);
     }
 
     /**
      * 将日期key String转为时间类
      */
     public static Date parseDateKey(String datekey) {
+        SimpleDateFormat sdf = getDateKeyFormat();
         try {
-            return DATE_KEY_FORMAT.parse(datekey);
+            return sdf.parse(datekey);
         } catch (ParseException e) {
             e.printStackTrace();
             System.out.println("DateUtils Error == parseDateKey() == 时间格式错误");
@@ -129,8 +140,9 @@ public class DateUtils {
      * 将String转为时间类
      */
     public static Date parseTime(String time) {
+        SimpleDateFormat sdf = getTimeFormat();
         try {
-            return TIME_FORMAT.parse(time);
+            return sdf.parse(time);
         } catch (ParseException e) {
             e.printStackTrace();
             System.out.println("DateUtils Error == parseTIme() == 时间格式错误");
@@ -138,5 +150,28 @@ public class DateUtils {
         return null;
     }
 
+    private static SimpleDateFormat getTimeFormat(){
+        SimpleDateFormat sdf = localDateFormat.get();
+        if (sdf == null){
+            sdf = new SimpleDateFormat(TIME_FORMAT);
+        }
+        return sdf;
+    }
+
+    private static SimpleDateFormat getDateFormat(){
+        SimpleDateFormat sdf = localDateFormat.get();
+        if (sdf == null){
+            sdf = new SimpleDateFormat(DATE_FORMAT);
+        }
+        return sdf;
+    }
+
+    private static SimpleDateFormat getDateKeyFormat(){
+        SimpleDateFormat sdf = localDateFormat.get();
+        if (sdf == null){
+            sdf = new SimpleDateFormat(DATE_KEY_FORMAT);
+        }
+        return sdf;
+    }
 
 }
