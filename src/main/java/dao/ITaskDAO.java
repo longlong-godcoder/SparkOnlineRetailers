@@ -4,5 +4,5 @@ import domain.Task;
 
 public interface ITaskDAO {
 
-    Task findById(Long taskid);
+    Task findById(Long taskId);
 }

@@ -6,9 +6,9 @@ import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SQLContext;
+import org.apache.spark.sql.SparkSession;
 
 import java.io.BufferedWriter;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
@@ -18,9 +18,9 @@ public class TestMockData {
     private static JavaSparkContext jsc;
     private static SQLContext sqlContext;
     static {
-        SparkConf conf = new SparkConf().setAppName("WordCount").setMaster("local[4]");
-        jsc = new JavaSparkContext(conf);
-        sqlContext = new SQLContext(jsc);
+        SparkSession sparkSession = SparkSession.builder().appName("TestMockData").master("local[4]").getOrCreate();
+        jsc = JavaSparkContext.fromSparkContext(sparkSession.sparkContext());
+        sqlContext = sparkSession.sqlContext();
     }
 
     public static void testMockData(){
@@ -33,23 +33,6 @@ public class TestMockData {
         ds2.show();
         Dataset<Row> ds3 = sqlContext.sql("select * from product_info");
         ds3.show();
-        List<Row> collect = ds1.javaRDD().collect();
-
-        try {
-            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("user_visit_action.txt"));
-            for (Row row :
-                    collect) {
-                String s = row.toString();
-                bufferedWriter.write(s);
-                bufferedWriter.newLine();
-            }
-
-            bufferedWriter.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("出错");
-        }
-
     }
 
     public static JavaSparkContext getJavaSparkContext(){

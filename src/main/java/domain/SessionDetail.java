@@ -3,13 +3,13 @@ package domain;
 public class SessionDetail {
 
     private long taskId;
-    private long userId;
+    private Long userId;
     private String sessionId;
-    private long pageId;
+    private Long pageId;
     private String actionTime;
     private String searchKeyword;
-    private long clickCategoryId;
-    private long clickProductId;
+    private Long clickCategoryId;
+    private Long clickProductId;
     private String orderCategoryIds;
     private String orderProductIds;
     private String payCategoryIds;
@@ -23,11 +23,11 @@ public class SessionDetail {
         this.taskId = taskId;
     }
 
-    public long getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(long userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
@@ -39,11 +39,11 @@ public class SessionDetail {
         this.sessionId = sessionId;
     }
 
-    public long getPageId() {
+    public Long getPageId() {
         return pageId;
     }
 
-    public void setPageId(long pageId) {
+    public void setPageId(Long pageId) {
         this.pageId = pageId;
     }
 
@@ -63,19 +63,19 @@ public class SessionDetail {
         this.searchKeyword = searchKeyword;
     }
 
-    public long getClickCategoryId() {
+    public Long getClickCategoryId() {
         return clickCategoryId;
     }
 
-    public void setClickCategoryId(long clickCategoryId) {
+    public void setClickCategoryId(Long clickCategoryId) {
         this.clickCategoryId = clickCategoryId;
     }
 
-    public long getClickProductId() {
+    public Long getClickProductId() {
         return clickProductId;
     }
 
-    public void setClickProductId(long clickProductId) {
+    public void setClickProductId(Long clickProductId) {
         this.clickProductId = clickProductId;
     }
 

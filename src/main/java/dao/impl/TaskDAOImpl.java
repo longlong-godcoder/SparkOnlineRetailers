@@ -18,7 +18,7 @@ public class TaskDAOImpl implements ITaskDAO {
             @Override
             public void process(ResultSet rs) throws Exception {
                 if (rs.next()){
-                    task.setTaskid(rs.getLong(1));
+                    task.setTaskId(rs.getLong(1));
                     task.setTaskName(rs.getString(2));
                     task.setCreateTime(rs.getString(3));
                     task.setStartTime(rs.getString(4));

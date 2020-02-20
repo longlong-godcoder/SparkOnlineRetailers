@@ -116,7 +116,7 @@ public class WordCount {
      */
     public static void wordCount3(){
         SparkSession sparkSession = getSparkSession();
-        Dataset<String> ds1 = sparkSession.read().textFile("wordCount.txt");
+        Dataset<String> ds1 = sparkSession.read().textFile("rddData/wordCount.txt");
         Dataset<Row> rowDataset = ds1.toDF();
     }
 

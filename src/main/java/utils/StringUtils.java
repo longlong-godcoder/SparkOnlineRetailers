@@ -69,7 +69,7 @@ public class StringUtils {
         for (int i = 0; i < fields.length; i++) {
             String fieldName = fields[i].split("=")[0];
             if(fieldName.equals(field)) {
-                fields[i] = fieldName + value;
+                fields[i] = fieldName + "=" + value;
                 break;
             }
         }
